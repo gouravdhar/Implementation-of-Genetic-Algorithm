@@ -16,38 +16,38 @@ public class SimpleDemoGA {
     public static void main(String[] args) {
 
         Random rn = new Random();
-        
+
         SimpleDemoGA demo = new SimpleDemoGA();
-        
+
         //Initialize population
         demo.population.initializePopulation(10);
-        
+
         //Calculate fitness of each individual
         demo.population.calculateFitness();
-        
+
         System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
 
         //While population gets an individual with maximum fitness
         while (demo.population.fittest < 5) {
             ++demo.generationCount;
-            
+
             //Do selection
             demo.selection();
-            
+
             //Do crossover
             demo.crossover();
-            
+
             //Do mutation under a random probability
             if (rn.nextInt()%7 < 5) {
                 demo.mutation();
             }
-            
+
             //Add fittest offspring to population
             demo.addFittestOffspring();
-            
-            //Calculate new fitness value 
+
+            //Calculate new fitness value
             demo.population.calculateFitness();
-            
+
             System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
         }
 
@@ -64,10 +64,10 @@ public class SimpleDemoGA {
 
     //Selection
     void selection() {
-        
+
         //Select the most fittest individual
         fittest = population.getFittest();
-        
+
         //Select the second most fittest individual
         secondFittest = population.getSecondFittest();
     }
@@ -75,7 +75,7 @@ public class SimpleDemoGA {
     //Crossover
     void crossover() {
         Random rn = new Random();
-        
+
         //Select a random crossover point
         int crossOverPoint = rn.nextInt(population.individuals[0].geneLength);
 
@@ -92,7 +92,7 @@ public class SimpleDemoGA {
     //Mutation
     void mutation() {
         Random rn = new Random();
-        
+
         //Select a random mutation point
         int mutationPoint = rn.nextInt(population.individuals[0].geneLength);
 
@@ -123,14 +123,14 @@ public class SimpleDemoGA {
 
     //Replace least fittest individual from most fittest offspring
     void addFittestOffspring() {
-        
+
         //Update fitness values of offspring
         fittest.calcFitness();
         secondFittest.calcFitness();
-        
+
         //Get index of least fit individual
         int leastFittestIndex = population.getLeastFittestIndex();
-        
+
         //Replace least fittest individual from most fittest offspring
         population.individuals[leastFittestIndex] = getFittestOffspring();
     }
@@ -186,13 +186,15 @@ class Population {
     //Get the fittest individual
     public Individual getFittest() {
         int maxFit = Integer.MIN_VALUE;
+        int maxFitIndex = 0;
         for (int i = 0; i < individuals.length; i++) {
             if (maxFit <= individuals[i].fitness) {
-                maxFit = i;
+                maxFit = individuals[i].fitness;
+                maxFitIndex = i;
             }
         }
-        fittest = individuals[maxFit].fitness;
-        return individuals[maxFit];
+        fittest = individuals[maxFitIndex].fitness;
+        return individuals[maxFitIndex];
     }
 
     //Get the second most fittest individual
@@ -212,13 +214,15 @@ class Population {
 
     //Get index of least fittest individual
     public int getLeastFittestIndex() {
-        int minFit = 0;
+        int minFitVal = Integer.MAX_VALUE;
+        int minFitIndex = 0;
         for (int i = 0; i < individuals.length; i++) {
-            if (minFit >= individuals[i].fitness) {
-                minFit = i;
+            if (minFitVal >= individuals[i].fitness) {
+                minFitVal = individuals[i].fitness;
+                minFitIndex = i;
             }
         }
-        return minFit;
+        return minFitIndex;
     }
 
     //Calculate fitness of each individual
