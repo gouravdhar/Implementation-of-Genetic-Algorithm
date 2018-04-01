@@ -150,7 +150,7 @@ class Individual {
 
         //Set genes randomly for each individual
         for (int i = 0; i < genes.length; i++) {
-            genes[i] = rn.nextInt() % 2;
+            genes[i] = Math.abs(rn.nextInt() % 2);
         }
 
         fitness = 0;
