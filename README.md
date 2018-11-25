@@ -1,8 +1,9 @@
 # Implementation-of-Genetic-Algorithm
 
-Genetic Algorithm is based on notion of natural selection. The offspring inherits the characteristics of the parents which are passed on to the subsequebt generations. Given a problem statement which needs to be solved using Genetic Algorithm, we first need to decide these characteristics and then proceed.
+Genetic Algorithm is based on notion of natural selection. The offspring inherits the characteristics of the parents which are passed on to the subsequent generations. Given a problem statement which needs to be solved using Genetic Algorithm, we first need to decide these characteristics and then proceed.
 
 Five phases that are considered in a genetic algorithm  are:
+
     Initial population
     Fitness function
     Selection
