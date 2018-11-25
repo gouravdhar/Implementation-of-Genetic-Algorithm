@@ -36,20 +36,20 @@ class Population(object):
 		return self.individuals[self.maxfitindex]
 
 	#get second fittest individual
-	def get_second_fittest():
+	def get_second_fittest(self):
 		self.maxfit1 = 0
 		self.maxfit2 = 0
 		for  i in range(10) :
-			if self.individuals[i].fitness > self.individuals[maxfitindex].fitness:
+			if self.individuals[i].fitness > self.individuals[self.maxfitindex].fitness:
 				self.maxfit2 = self.maxfit1
 				self.maxfit1 = i 
 
-			elif self.individuals[i].fitness > self.individuals[maxfit2].fitness:
+			elif self.individuals[i].fitness > self.individuals[self.maxfit2].fitness:
 				self.maxfit2 = i 
 
-		return self.individuals[maxfit2]
+		return self.individuals[self.maxfit2]
 
-	def get_least_fittest_index():
+	def get_least_fittest_index(self):
 		self.minfitval = 6
 		self.minfitindex = 0
 		for i in range(10):
@@ -63,13 +63,69 @@ class Population(object):
 			self.individuals[i].calc_fitness()
 		self.get_fittest()
 
+class genetic_algo(object):
+	def __init__(self):
+		self.population = Population()
+		self.generationCount = 0
+
+	def selection(self):
+		self.fittest = self.population.get_fittest()
+		self.secondfittest = self.population.get_second_fittest()
+
+	def crossover(self):
+		self.crossoverpoint = randrange(0,5)
+		for i in range(self.crossoverpoint):
+			self.temp = self.fittest.genes[i]
+			self.fittest.genes[i] = self.secondfittest.genes[i]
+			self.secondfittest.genes[i] = self.temp
+
+	def mutation(self):
+		self.mutationpoint = randrange(0,5)
+		if self.fittest.genes[mutationpoint] == 0:
+			self.fittest.genes[mutationpoint] = 1
+		else :
+			self.fittest.genes[mutationpoint] = 0
+
+		self.mutationpoint = randrange(0,5)
+		if self.secondfittest.genes[mutationpoint] == 0:
+			self.secondfittest.genes[mutationpoint] = 1
+		else :
+			self.secondfittest.genes[mutationpoint] = 0
+
+	def get_fittest_offspring(self):
+		if self.fittest.fitness > self.secondfittest.fitness :
+			return self.fittest
+		else:
+			return self.secondfittest
+
+	def add_fittest_offspring(self):
+		self.fittest.calc_fitness()
+		self.secondfittest.calc_fitness()
+		self.leastfittestindex = self.population.get_least_fittest_index()
+		self.population.individuals[self.leastfittestindex] = self.get_fittest_offspring()
+
+
+
+
+
+
 
 if __name__ == '__main__':
 
-	population = Population()
-	# Individual fittest
-	# Individual get_second_fittest
-	generationCount = 0
-	population.calculate_fitness()
-	# population.calculate_fitness();
-	print (population.fittest)
+	demo = genetic_algo()
+	demo.population.calculate_fitness()
+	print ("Generation: ", demo.generationCount, " Fittest: ",demo.population.fittest)
+	while demo.population.fittest < 5:
+		demo.generationCount = demo.generationCount + 1
+		demo.selection()
+		demo.crossover()
+		if randrange(0,7) < 5:
+			demo.mutation
+		demo.add_fittest_offspring()
+		demo.population.calculate_fitness()
+		print ("Generation: ", demo.generationCount, " Fittest: ",demo.population.fittest)
+
+	print("Solution found in generation: ",demo.generationCount)
+	print("Fitness: ",demo.population.get_fittest().fitness)
+	for i in range(5):
+		print(demo.population.get_fittest().genes[i])
