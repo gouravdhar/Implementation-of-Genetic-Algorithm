@@ -115,7 +115,9 @@ if __name__ == '__main__':
 	demo = genetic_algo()
 	demo.population.calculate_fitness()
 	print ("Generation: ", demo.generationCount, " Fittest: ",demo.population.fittest)
-	while demo.population.fittest < 5:
+	dummy = demo.population.fittest
+	max_till_now = 0 
+	while dummy < 5:
 		demo.generationCount = demo.generationCount + 1
 		demo.selection()
 		demo.crossover()
@@ -124,7 +126,14 @@ if __name__ == '__main__':
 		demo.add_fittest_offspring()
 		demo.population.calculate_fitness()
 		print ("Generation: ", demo.generationCount, " Fittest: ",demo.population.fittest)
-
+		dummy = demo.population.fittest
+		if demo.population.fittest > max_till_now:
+			max_till_now = demo.population.fittest
+		#if no. of generations exceeds 20000 we stop furthur calculations
+		if demo.generationCount > 20000:
+			if demo.population.fittest >= max_till_now:
+				dummy = 5 
+			
 	print("Solution found in generation: ",demo.generationCount)
 	print("Fitness: ",demo.population.get_fittest().fitness)
 	for i in range(5):
