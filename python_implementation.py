@@ -81,16 +81,16 @@ class genetic_algo(object):
 
 	def mutation(self):
 		self.mutationpoint = randrange(0,5)
-		if self.fittest.genes[mutationpoint] == 0:
-			self.fittest.genes[mutationpoint] = 1
+		if self.fittest.genes[self.mutationpoint] == 0:
+			self.fittest.genes[self.mutationpoint] = 1
 		else :
-			self.fittest.genes[mutationpoint] = 0
+			self.fittest.genes[self.mutationpoint] = 0
 
 		self.mutationpoint = randrange(0,5)
-		if self.secondfittest.genes[mutationpoint] == 0:
-			self.secondfittest.genes[mutationpoint] = 1
+		if self.secondfittest.genes[self.mutationpoint] == 0:
+			self.secondfittest.genes[self.mutationpoint] = 1
 		else :
-			self.secondfittest.genes[mutationpoint] = 0
+			self.secondfittest.genes[self.mutationpoint] = 0
 
 	def get_fittest_offspring(self):
 		if self.fittest.fitness > self.secondfittest.fitness :
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 		demo.selection()
 		demo.crossover()
 		if randrange(0,7) < 5:
-			demo.mutation
+			demo.mutation()
 		demo.add_fittest_offspring()
 		demo.population.calculate_fitness()
 		print ("Generation: ", demo.generationCount, " Fittest: ",demo.population.fittest)
