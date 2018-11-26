@@ -138,3 +138,4 @@ if __name__ == '__main__':
 	print("Fitness: ",demo.population.get_fittest().fitness)
 	for i in range(5):
 		print(demo.population.get_fittest().genes[i])
+ 
