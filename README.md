@@ -10,5 +10,5 @@ Five phases that are considered in a genetic algorithm  are:
     Crossover
     Mutation
     
-This repository contains a basic python implementaion of the Genetic Algorithm Example in https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3
+This link contains a basic explaination of the Genetic Algorithm Example in https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3
 
